@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <title>Title</title>
+</head>
+
+<!--/* @thymesVar id="page" type="functional.commerce.bean.cms.Page" */-->
+
+<!-- /* -------------------------------------------------------------
+    SCRIPTS
+    ---
+    APP DYNAMICS
+    DATA LAYER CREATION
+    GOOGLE TAG MANAGER
+    CROWDIN TRANSLATOR              (IF ONLINE TRANSLATIONS ACTIVE)
+    BAZAARVOICE                     (IF BAZAARVOICE ENABLED AND PRODUCT PAGE)
+    SMARTEDIT PREVIEW SCRIPTS       (IF IN PREVIEW MODE)
+    CAPTCHA                         (IF CAPTCHA NEEDED - RECAPTCHA SCRIPT)
+    WEBCLIPPING                     (IF EIM, ABSPACE PAGE)
+    PICTURE ELEMENT POLYFILL        (IF BROWSER DOES NOT SUPPORT PICTURE ELEMENT, MOSTLY IE11)
+--------------------------------------------------------------- */-->
+
+<body th:remove="tag">
+
+<!--/* TRACKING */-->
+<th:block th:insert="page-includes/tracking/tracking :: body"/>
+
+<!-- /*T2S _t2sparams */ -->
+<th:block th:if="${@siteHelper.isfeatureActive('t2s-enable')}">
+    <script
+            th:inline="javascript"
+            th:class="|optanon-category-${@endPointsProperties.onetrust.onetrustcategory.t2s}|"
+    >
+        /*<![CDATA[*/
+        // TODO REMOVE t2sIsActive
+        window.t2sIsActive = [[${@siteHelper.isfeatureActive('t2s-enable')}]];
+        window._t2sparams = window._t2sparams || [];
+        var params = [[${@trackingT2sHelper.getT2sParams(page)}]];
+        window._t2sparams = JSON.parse(params);
+        /*]]>*/
+    </script>
+    <script th:type="${@siteHelper.isfeatureActive('onetrust-enable')} ? 'text/plain' : 'text/javascript'"
+            th:class="|optanon-category-${@endPointsProperties.onetrust.onetrustcategory.t2s}|"
+            th:src="${@endPointsProperties.t2s.library}"
+            async=""
+    ></script>
+</th:block>
+
+<!--/* CROWDIN TRANSLATOR */-->
+<th:block th:if="${@serverProperties.isActivateInlineTranslation()}">
+    <script>
+        var _jipt = [];
+        _jipt.push(['project', 'spark-translator']);
+    </script>
+    <script src="https://cdn.crowdin.com/jipt/jipt.js"></script>
+</th:block>
+
+<!--/* BAZAARVOICE */-->
+<script
+    th:if="${@bazaarVoiceHelper.isEnabled()}"
+    th:src="${@bazaarVoiceHelper.getUrl()}"
+></script>
+
+<meta name="bv:userToken" th:content="${@bazaarVoiceHelper.getPseudo()}">
+
+<!--/* SMARTEDIT PREVIEW SCRIPTS */-->
+<th:block th:if="${@serverProperties.isPreview()}">
+    <script th:src="${@assetsHelper.urlJS('smartedit/script.min', false)}"></script>
+    <script id="smartedit-injector" data-smartedit-allow-origin="localhost:9002"
+            th:src="${@assetsHelper.urlJS('smartedit/webApplicationInjector', false)}"></script>
+</th:block>
+
+<!--/* WEBCLIPPING */-->
+<th:block th:if="not ${#lists.isEmpty(javascripts)} and (${page.uid} eq 'eim' or ${page.uid} eq 'abspace')">
+
+    <th:block th:if="${page.uid} eq 'eim'">
+        <script th:src="${@assetsHelper.urlJS('eim/jquery-1.10.2.min', false)}"></script>
+        <script th:src="${@assetsHelper.urlJS('eim/jquery.jscrollpane.min', false)}"></script>
+        <script th:src="${@assetsHelper.urlJS('eim/jquery.colorbox-min', false)}"></script>
+        <script th:src="${@assetsHelper.urlJS('eim/jquery.cookie', false)}"></script>
+
+        <th:block th:if="${@deviceHelper.isMobile()}">
+            <script th:src="${@assetsHelper.urlJS('eim/combined', false)}"></script>
+            <script th:src="${@assetsHelper.urlJS('eim/jquery.mobile-1.4.2', false)}"></script>
+        </th:block>
+    </th:block>
+
+    <th:block th:if="${page.uid} eq 'abspace'">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </th:block>
+
+    <script th:unless="${#lists.isEmpty(javascripts)}"
+            th:each="js : ${javascripts}"
+            th:src="${js}">
+    </script>
+
+    <th:block th:if="${page.uid} eq 'eim'">
+        <script th:src="${@assetsHelper.urlJS('eim/jquery.cookie', false)}"></script>
+        <script th:if="${page.uid} eq 'eim'">
+            updateCustomerStore = function (storeId, storeName, storeUrl, storeCity) {
+                $.cookie('nx_store', 'storeid=' + storeId + '&storeURL=' + storeUrl + '&storeCity=' + storeCity + '&storeName=' + storeName, {
+                    expires: 365,
+                    path: '/'
+                });
+            };
+        </script>
+    </th:block>
+</th:block>
+
+<!--/* PICTURE ELEMENT POLYFILL (IF BROWSER DOES NOT SUPPORT PICTURE ELEMENT, MOSTLY IE11)
+Documentation: https://github.com/scottjehl/picturefill
+!!! IMPORTANT: https://github.com/scottjehl/picturefill#the-gotchas */-->
+<script async
+        src="https://cdnjs.cloudflare.com/ajax/libs/picturefill/3.0.3/picturefill.min.js"
+></script>
+
+<!--/* Loyalty fidback*/-->
+<th:block th:if="${@loyaltyActiveService.isActive()}">
+    <script th:inline="javascript">
+        var isloyaltyActiveService = true;
+    </script>
+</th:block>
+<!--/* JAVASCRIPT LOADING FIRST */-->
+<th:block th:insert="page-includes/third-party/third-party-block :: body"/>
+</body>
+</html>

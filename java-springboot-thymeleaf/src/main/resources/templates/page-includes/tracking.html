@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <title>Tracking</title>
+</head>
+
+<!--/* @thymesVar id="page" type="<project>.functional.commerce.bean.cms.Page" */-->
+<body th:remove="tag">
+
+<th:block th:if="${@trackingHelper.isEnable()}">
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        if(typeof data === 'undefined') {
+            let data;
+        }
+        data = JSON.parse([[${@trackingHelper.getDataLayer(page)}]]);
+        if(data) {
+            window.dataLayer = window.dataLayer || [];
+            // must be always in position 0
+            window.dataLayer.unshift(data);
+        }
+        /*]]>*/
+    </script>
+
+    <!--/* GOOGLE TAG MANAGER */-->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var gtmOptions = [[${@trackingHelper.gtmOptions()}]];
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl + gtmOptions;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-<code>');
+        /*]]>*/
+    </script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var dataLayerTrackingEvent = [[${trackingEvent}]];
+        if (dataLayerTrackingEvent) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(JSON.parse(dataLayerTrackingEvent));
+        }
+        /*]]>*/
+    </script>
+
+</th:block>
+
+</body>
+</html>

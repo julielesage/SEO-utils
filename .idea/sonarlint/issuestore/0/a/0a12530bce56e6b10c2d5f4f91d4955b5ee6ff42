@@ -1,0 +1,37 @@
+
+
+java:S1598"ìThis file "Page.java" should be located in "functional/commerce/bean/cms" directory, not in "/Users/julie/Documents/DEV_PERSO/SEO/SEO-utils/java-springboot/src/main/java/functional/commerce/bean.cms"(Do not use dots in directory names).(éĞ‘Üûÿÿÿÿ8äÒ‚2
+R
+java:S1068"6Remove this unused "catalogVersionUuid" private field.(ÇÈÜV8£äÒ‚2
+I
+java:S1068"'Remove this unused "uid" private field.(Šüÿÿÿÿ8£äÒ‚2
+J
+java:S1068"(Remove this unused "uuid" private field.(´İ›œÿÿÿÿÿ8¤äÒ‚2
+E
+java:S1068"(Remove this unused "name" private field.(Ë¥¼8¥äÒ‚2
+N
+java:S1068 ",Remove this unused "template" private field.(Ô¨ä¬ÿÿÿÿÿ8¦äÒ‚2
+N
+java:S1068!",Remove this unused "typeCode" private field.(¡”İ·üÿÿÿÿ8¦äÒ‚2
+L
+java:S1068""*Remove this unused "follow" private field.(”éÁ¬øÿÿÿÿ8§äÒ‚2
+F
+java:S1068#")Remove this unused "index" private field.(Ø¼Ã8§äÒ‚2
+O
+java:S1068$"2Remove this unused "grLoadingFirst" private field.(Åêôû8§äÒ‚2
+X
+java:S1068%"6Remove this unused "grOnetrustCategory" private field.(àò¨Ùûÿÿÿÿ8¨äÒ‚2
+F
+java:S1068&")Remove this unused "label" private field.(¯©·8¨äÒ‚2
+V
+java:S1068("4Remove this unused "previewComponent" private field.(¦…öšüÿÿÿÿ8¨äÒ‚2
+L
+java:S1068*"/Remove this unused "grHreflangs" private field.(‚ò¡¼8¨äÒ‚2
+N
+java:S1068+"1Remove this unused "localizedUrls" private field.(Ëâ°‡8¨äÒ‚2
+E
+java:S1068."(Remove this unused "meta" private field.(ñ›‰’8©äÒ‚2
+R
+java:S1068/"0Remove this unused "contentSlots" private field.(‡í€Ñùÿÿÿÿ8©äÒ‚2
+Q
+java:S10680"/Remove this unused "breadcrumbs" private field.(àá©½úÿÿÿÿ8©äÒ‚2

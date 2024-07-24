@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      th:lang="${@siteHelper.getCurrentLanguage()}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+
+    <th:block th:insert="page-includes/meta/preconnect :: body"/>
+
+    <!--/* TOP SCRIPTS  */-->
+    <th:block th:insert="page-includes/javascripts/javascripts-top-level-head :: body"/>
+
+    <!--/* META  */-->
+    <th:block th:insert="page-includes/meta/meta :: body"/>
+
+    <!--/* TITLE */-->
+    <title th:text="${page.meta.title}"
+           th:unless="${#strings.isEmpty(page.meta?.title)}"
+    >Page title</title>
+
+    <!--/* ICON */-->
+    <th:block th:insert="page-includes/icon/icon :: body"/>
+
+    <!--/* STYLESHEETS */-->
+    <th:block th:insert="page-includes/stylesheets/stylesheets :: body"/>
+
+    <!--/* SCRIPTS  */-->
+    <th:block th:insert="page-includes/javascripts/javascripts-head :: body"/>
+
+</head>
+
+<body th:remove="tag">
+
+<!--/* FOR WEB APP - remove header and footer */-->
+<th:block
+        th:if="${@webViewHelper.isWebView()}"
+        th:insert="pages/dynamic-for-webview :: body" />
+
+<!--/* FOR WEB - show all */-->
+<th:block
+        th:unless="${@webViewHelper.isWebView()}"
+        th:insert="pages/dynamic-for-web :: body" />
+
+</body>
+</html>

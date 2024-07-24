@@ -1,0 +1,8 @@
+
+wtypescript:S3776"TRefactor this function to reduce its Cognitive Complexity from 22 to the 15 allowed.(ÌõßÖ8¿¬ÆŸŽ2
+htypescript:S905 "FExpected an assignment or function call and instead saw an expression.(Ñ“¾—8Ã¬ÆŸŽ2
+ztypescript:S1121!"RExtract the assignment of "PrivacyManager.dataTrackingLevel" from this expression.(ËÂ»îúÿÿÿÿ8Å¬ÆŸŽ2
+}typescript:S6582Q"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(Åÿöa8È¬ÆŸŽ2
+ƒtypescript:S6582R"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(†³‡êÿÿÿÿÿ8É¬ÆŸŽ2
+htypescript:S905\"FExpected an assignment or function call and instead saw an expression.(ÓÕ½”8É¬ÆŸŽ2
+mtypescript:S905d"FExpected an assignment or function call and instead saw an expression.(°¿Ý°ýÿÿÿÿ8Ì¬ÆŸŽ2
